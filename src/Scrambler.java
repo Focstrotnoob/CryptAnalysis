@@ -4,9 +4,15 @@ import java.util.Arrays;
 
 public class Scrambler {
 
+    protected Scrambler(){}
+
 
     public Scrambler (int key){
-        this.key = key;
+        if (key >= 0 && key < 71) {
+            this.key = key;
+        } else {
+            throw new InvalidKey("Ключ должен быть в диапазоне от 0 до 70");
+        }
     }
 
     public int getKey() {

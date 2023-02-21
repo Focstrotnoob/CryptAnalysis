@@ -1,7 +1,8 @@
 import java.io.*;
+import java.io.FileNotFoundException;
 
-public class IO {
-    public void readingAndEncrypt(String readFile, String writeFile, Scrambler scrambler){
+public class ReaderWriter {
+    public void readingEncryptWrite(String readFile, String writeFile, Scrambler scrambler){
         try (BufferedReader br = new BufferedReader(new FileReader(readFile));
             BufferedWriter bw = new BufferedWriter(new FileWriter(writeFile)))
         {
@@ -14,13 +15,18 @@ public class IO {
                 bw.write(scrambler.comparison(array, scrambler.getAlphabet()));
             }
 
-        } catch (IOException e) {
+        }
+        catch (FileNotFoundException e){
+            throw new FileNotFoundEx("Файла по данному пути не найдено, введите другой путь или создайте файл");
+
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public void readingAndDecrypt(String readFile, String writeFile, Scrambler scrambler){
+    public void readingDecryptWrite(String readFile, String writeFile, Scrambler scrambler){
         try (BufferedReader br = new BufferedReader(new FileReader(readFile));
              BufferedWriter bw = new BufferedWriter(new FileWriter(writeFile)))
         {
@@ -33,7 +39,12 @@ public class IO {
                 bw.write(scrambler.comparisonBack(array, scrambler.getEcnrAlphabet()));
             }
 
-        } catch (IOException e) {
+        }
+        catch (FileNotFoundException e){
+            throw new FileNotFoundEx("Файла по данному пути не найдено, введите другой путь или создайте файл");
+
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
 
